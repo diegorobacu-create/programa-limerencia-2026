@@ -24,25 +24,125 @@
     :root { color-scheme: dark; }
     * { box-sizing: border-box; }
     html { background: #120807; }
-    body { margin: 0; background: #120807; color: #f9ede7; font-family: Arial, Helvetica, sans-serif; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: #120807;
+      color: #f9ede7;
+      font-family: Arial, Helvetica, sans-serif;
+    }
     .topbar {
-      position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between;
-      gap: 16px; min-height: 58px; padding: 10px max(16px, calc((100vw - 720px) / 2));
-      background: rgba(18, 8, 7, .94); border-bottom: 1px solid rgba(242, 104, 55, .35);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 58px;
+      padding: 10px max(16px, calc((100vw - 720px) / 2));
+      background: rgba(18, 8, 7, .94);
+      border-bottom: 1px solid rgba(242, 104, 55, .35);
     }
     .title { font-size: 15px; font-weight: 700; letter-spacing: 0; }
     .download {
-      display: inline-flex; align-items: center; min-height: 36px; padding: 8px 12px; border: 1px solid #ee713a;
-      border-radius: 4px; color: #fff8f4; background: #8f2d17; font-size: 14px; font-weight: 700;
-      text-decoration: none; white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 8px 12px;
+      border: 1px solid #ee713a;
+      border-radius: 4px;
+      color: #fff8f4;
+      background: #8f2d17;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
     }
-    main { width: min(100%, 720px); margin: 0 auto; }
-    .page { display: block; width: 100%; height: auto; }
+    main {
+      width: min(100%, 720px);
+      margin: 0 auto;
+      padding: 16px 0 24px;
+    }
+    .viewer {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #080303;
+      touch-action: pan-y;
+      user-select: none;
+    }
+    .track {
+      display: flex;
+      width: 400%;
+      transition: transform .28s ease;
+      will-change: transform;
+    }
+    .slide {
+      flex: 0 0 25%;
+      display: grid;
+      place-items: center;
+      background: #080303;
+    }
+    .slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: calc(100vh - 154px);
+      object-fit: contain;
+      pointer-events: none;
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      width: 42px;
+      height: 52px;
+      transform: translateY(-50%);
+      border: 0;
+      color: #fff;
+      background: rgba(0, 0, 0, .55);
+      font-size: 32px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .arrow:focus-visible,
+    .dot:focus-visible,
+    .download:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+    .prev { left: 0; border-radius: 0 4px 4px 0; }
+    .next { right: 0; border-radius: 4px 0 0 4px; }
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 44px;
+      padding: 10px 16px 0;
+    }
+    .counter { min-width: 68px; text-align: center; font-size: 14px; }
+    .dots { display: flex; gap: 8px; }
+    .dot {
+      width: 10px;
+      height: 10px;
+      padding: 0;
+      border: 1px solid #f29a70;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+    }
+    .dot[aria-current="true"] { background: #f2743c; }
     @media (min-width: 800px) {
       body { padding: 0 0 24px; }
       main { box-shadow: 0 0 36px rgba(0, 0, 0, .5); }
-      .page { margin-top: 10px; }
-      .page:first-child { margin-top: 0; }
+    }
+    @media (max-width: 460px) {
+      .title { font-size: 13px; }
+      .topbar { gap: 8px; }
+      .download { font-size: 13px; padding: 7px 10px; }
+      main { padding-top: 0; }
+      .slide img { max-height: calc(100vh - 116px); }
     }
   </style>
 </head>
@@ -52,10 +152,53 @@
     <a class="download" href="programa2026.pdf" download>Descargar PDF</a>
   </header>
   <main aria-label="Programa de Limerencia">
-    <img class="page" src="programa-2026-1.png" alt="Portada del programa Limerencia" fetchpriority="high">
-    <img class="page" src="programa-2026-2.png" alt="Texto del programa Limerencia" loading="lazy">
-    <img class="page" src="programa-2026-3.png" alt="Elenco y creditos del programa Limerencia" loading="lazy">
-    <img class="page" src="programa-2026-4.png" alt="Creditos tecnicos del programa Limerencia" loading="lazy">
+    <section class="viewer" aria-roledescription="carousel" aria-label="Paginas del programa">
+      <div class="track">
+        <div class="slide"><img src="programa-2026-1.png" alt="Portada del programa Limerencia" fetchpriority="high"></div>
+        <div class="slide"><img src="programa-2026-2.png" alt="Texto del programa Limerencia" loading="lazy"></div>
+        <div class="slide"><img src="programa-2026-3.png" alt="Elenco y creditos del programa Limerencia" loading="lazy"></div>
+        <div class="slide"><img src="programa-2026-4.png" alt="Creditos tecnicos del programa Limerencia" loading="lazy"></div>
+      </div>
+      <button class="arrow prev" type="button" aria-label="Pagina anterior">&#8249;</button>
+      <button class="arrow next" type="button" aria-label="Pagina siguiente">&#8250;</button>
+    </section>
+    <div class="controls">
+      <span class="counter" aria-live="polite">1 de 4</span>
+      <div class="dots" aria-label="Elegir pagina">
+        <button class="dot" type="button" aria-label="Ir a pagina 1" aria-current="true"></button>
+        <button class="dot" type="button" aria-label="Ir a pagina 2" aria-current="false"></button>
+        <button class="dot" type="button" aria-label="Ir a pagina 3" aria-current="false"></button>
+        <button class="dot" type="button" aria-label="Ir a pagina 4" aria-current="false"></button>
+      </div>
+    </div>
   </main>
+  <script>
+    const track = document.querySelector(".track");
+    const viewer = document.querySelector(".viewer");
+    const dots = [...document.querySelectorAll(".dot")];
+    const counter = document.querySelector(".counter");
+    let page = 0;
+    let startX = 0;
+
+    function showPage(nextPage) {
+      page = (nextPage + 4) % 4;
+      track.style.transform = `translateX(-${page * 25}%)`;
+      counter.textContent = `${page + 1} de 4`;
+      dots.forEach((dot, index) => dot.setAttribute("aria-current", String(index === page)));
+    }
+
+    document.querySelector(".prev").addEventListener("click", () => showPage(page - 1));
+    document.querySelector(".next").addEventListener("click", () => showPage(page + 1));
+    dots.forEach((dot, index) => dot.addEventListener("click", () => showPage(index)));
+    viewer.addEventListener("pointerdown", (event) => { startX = event.clientX; });
+    viewer.addEventListener("pointerup", (event) => {
+      const distance = event.clientX - startX;
+      if (Math.abs(distance) > 40) showPage(page + (distance < 0 ? 1 : -1));
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") showPage(page - 1);
+      if (event.key === "ArrowRight") showPage(page + 1);
+    });
+  </script>
 </body>
 </html>
