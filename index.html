@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#120807">
+  <title>Limerencia - Programa 2026</title>
+  <meta name="description" content="Programa de Limerencia - El peso de elegir.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Limerencia - Programa 2026">
+  <meta property="og:description" content="El peso de elegir.">
+  <meta property="og:image" content="programa-2026-1.png">
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html { background: #120807; }
+    body { margin: 0; background: #120807; color: #f9ede7; font-family: Arial, Helvetica, sans-serif; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; min-height: 58px; padding: 10px max(16px, calc((100vw - 720px) / 2));
+      background: rgba(18, 8, 7, .94); border-bottom: 1px solid rgba(242, 104, 55, .35);
+    }
+    .title { font-size: 15px; font-weight: 700; letter-spacing: 0; }
+    .download {
+      display: inline-flex; align-items: center; min-height: 36px; padding: 8px 12px; border: 1px solid #ee713a;
+      border-radius: 4px; color: #fff8f4; background: #8f2d17; font-size: 14px; font-weight: 700;
+      text-decoration: none; white-space: nowrap;
+    }
+    main { width: min(100%, 720px); margin: 0 auto; }
+    .page { display: block; width: 100%; height: auto; }
+    @media (min-width: 800px) {
+      body { padding: 0 0 24px; }
+      main { box-shadow: 0 0 36px rgba(0, 0, 0, .5); }
+      .page { margin-top: 10px; }
+      .page:first-child { margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="title">Limerencia - Programa 2026</span>
+    <a class="download" href="programa2026.pdf" download>Descargar PDF</a>
+  </header>
+  <main aria-label="Programa de Limerencia">
+    <img class="page" src="programa-2026-1.png" alt="Portada del programa Limerencia" fetchpriority="high">
+    <img class="page" src="programa-2026-2.png" alt="Texto del programa Limerencia" loading="lazy">
+    <img class="page" src="programa-2026-3.png" alt="Elenco y creditos del programa Limerencia" loading="lazy">
+    <img class="page" src="programa-2026-4.png" alt="Creditos tecnicos del programa Limerencia" loading="lazy">
+  </main>
+</body>
+</html>
